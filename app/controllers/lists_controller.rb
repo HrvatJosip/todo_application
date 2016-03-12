@@ -1,4 +1,5 @@
 class ListsController < ApplicationController
+	before_action :find_list, only: [:show, :edit, :update, :destroy]
 
 	def index
 		@lists = List.all
@@ -18,15 +19,12 @@ class ListsController < ApplicationController
 	end
 
 	def show
-		@list = List.find(params[:id])
 	end
 
 	def edit
-		@list = List.find(params[:id])
 	end
 
 	def update
-		@list = List.find(params[:id])
 		if @list.update(list_params)
 			redirect_to @list
 		else
@@ -35,7 +33,6 @@ class ListsController < ApplicationController
 	end
 
 	def destroy
-		@list = List.find(params[:id])
 		@list.destroy
 		redirect_to lists_path
 	end
@@ -44,5 +41,9 @@ class ListsController < ApplicationController
 
 		def list_params
 			params.require(:list).permit(:title, :description)
+		end
+
+		def find_list
+			@list = List.find(params[:id])
 		end
 end

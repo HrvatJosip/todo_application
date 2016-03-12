@@ -1,17 +1,2 @@
-<% if @list.errors.any? %>
-	<ul>
-		<% @list.errors.full_messages.each do |msg| %>
-			<li><%= msg %></li>
-		<% end %>
-	</ul>
-<% end %>
-
-<%= form_for @list do |f| %>
-	<%= f.label :title %>
-	<%= f.text_field :title %>
-
-	<%= f.label :description %>
-	<%= f.text_area :description %>
-
-	<%= f.submit "Edit List" %>
-<% end %>
+<%= render 'errors' %>
+<%= render 'form' %>

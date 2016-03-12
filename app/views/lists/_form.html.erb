@@ -1,0 +1,9 @@
+<%= form_for @list do |f| %>
+	<%= f.label :title %>
+	<%= f.text_field :title %>
+
+	<%= f.label :description %>
+	<%= f.text_area :description %>
+
+	<%= f.submit(@list.new_record? ? "Create List" : "Edit List") %>
+<% end %>

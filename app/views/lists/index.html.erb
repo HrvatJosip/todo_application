@@ -1,5 +1,3 @@
 <% @lists.each do |list| %>
-	<%= list.title %>
-	<%= list.description %>
-	<br />
+	<%= link_to list.title, list %>
 <% end %>
