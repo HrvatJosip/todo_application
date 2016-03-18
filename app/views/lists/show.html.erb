@@ -1,2 +1,6 @@
-<%= @list.title %>
-<%= @list.description %>
+<h3><%= @list.title %></h3>
+<% if @list.description? %>
+	<div class="jumbotron">
+		<%= @list.description %>
+	</div>
+<% end %>

@@ -1,3 +1,7 @@
-<% @lists.each do |list| %>
-	<%= link_to list.title, list %>
-<% end %>
+<div class="list-group">
+	<% @lists.each do |list| %>
+		<%= link_to list, class: "list-group-item" do %>
+			<%= list.title %><span class="badge">#</span>
+		<% end %>
+	<% end %>
+</div>
