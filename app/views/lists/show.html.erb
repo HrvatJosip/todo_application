@@ -4,3 +4,10 @@
 		<%= @list.description %>
 	</div>
 <% end %>
+
+<% @list.items.each do |item| %>
+	<div class="task">
+		<%= item.task %>
+		<%= link_to "Delete Task", list_item_path(@list, item), method: :delete, data: {confirm: "Are you sure?"} %>
+	</div>
+<% end %>

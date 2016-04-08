@@ -1,0 +1,9 @@
+<%= form_for [@list, @item] do |f| %>
+	<div class="form-group">
+		<%= f.label :task %>
+		<%= f.text_field :task, class: "form-control", placeholder: "Task" %>
+	</div>
+
+
+	<%= f.submit(@item.new_record? ? "Create Item" : "Edit Item", class: "btn btn-success") %>
+<% end %>
