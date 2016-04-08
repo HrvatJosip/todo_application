@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+root 'pages#index'
+
   resources :lists do
     resources :items, except: :index
   end
