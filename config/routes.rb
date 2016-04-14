@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
-root 'pages#index'
+  root 'pages#index'
+  get 'error' => 'pages#error'
 
   resources :lists do
     resources :items, except: :index

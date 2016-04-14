@@ -1,4 +1,5 @@
 class ItemsController < ApplicationController
+	before_action :authenticate_user!
 	before_action :find_item, only: [:edit, :update, :destroy]
 	before_action :find_list, only: [:edit, :update, :destroy]
 	before_filter :require_permission, only: [:new, :edit]
@@ -45,13 +46,13 @@ class ItemsController < ApplicationController
 		end
 
 		def find_list
-			@list = @item.list
+			@list = List.find(params[:list_id])
 		end
 
 		def require_permission
-			if current_user != @list.user
+			if current_user != find_list.user
 				flash[:error] = "Error"
-				redirect_to root_path
+				redirect_to error_path
 			end
 		end
 end

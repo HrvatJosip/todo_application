@@ -52,7 +52,7 @@ class ListsController < ApplicationController
 		def require_permission
 			if current_user != List.find(params[:id]).user
 				flash[:success] = "Here"
-				redirect_to root_path
+				redirect_to error_path
 			end
 		end
 end
