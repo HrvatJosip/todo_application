@@ -1,16 +1,18 @@
 class ListsController < ApplicationController
+	before_action :authenticate_user!
 	before_action :find_list, only: [:show, :edit, :update, :destroy]
+	before_filter :require_permission, only: :edit
 
 	def index
-		@lists = List.all
+		@lists = current_user.lists
 	end
 
 	def new
-		@list = List.new
+		@list = current_user.lists.build
 	end
 
 	def create
-		@list = List.new(list_params)
+		@list = current_user.lists.build(list_params)
 		if @list.save
 			redirect_to @list
 		else
@@ -45,5 +47,12 @@ class ListsController < ApplicationController
 
 		def find_list
 			@list = List.find(params[:id])
+		end
+
+		def require_permission
+			if current_user != List.find(params[:id]).user
+				flash[:success] = "Here"
+				redirect_to root_path
+			end
 		end
 end

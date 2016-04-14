@@ -1,4 +1,7 @@
 class ItemsController < ApplicationController
+	before_action :find_item, only: [:edit, :update, :destroy]
+	before_action :find_list, only: [:edit, :update, :destroy]
+	before_filter :require_permission, only: [:new, :edit]
 
 	def new
 		@list = List.find(params[:list_id])
@@ -9,20 +12,16 @@ class ItemsController < ApplicationController
 		@list = List.find(params[:list_id])
 		@item = @list.items.build(item_params)
 		if @item.save
-			redirect_to lists_path
+			redirect_to @list
 		else
 			render :new
 		end
 	end
 
 	def edit
-		@item = Item.find(params[:id])
-		@list = @item.list
 	end
 
 	def update
-		@item = Item.find(params[:id])
-		@list = @item.list
 		if @item.update(item_params)
 			redirect_to @list
 		else
@@ -31,8 +30,6 @@ class ItemsController < ApplicationController
 	end
 
 	def destroy
-		@item = Item.find(params[:id])
-		@list = @item.list
 		@item.destroy
 		redirect_to @list
 	end
@@ -41,5 +38,20 @@ class ItemsController < ApplicationController
 
 		def item_params
 			params.require(:item).permit(:task)
+		end
+
+		def find_item
+			@item = Item.find(params[:id])
+		end
+
+		def find_list
+			@list = @item.list
+		end
+
+		def require_permission
+			if current_user != @list.user
+				flash[:error] = "Error"
+				redirect_to root_path
+			end
 		end
 end
