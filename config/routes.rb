@@ -4,7 +4,11 @@ Rails.application.routes.draw do
   get 'error' => 'pages#error'
 
   resources :lists do
-    resources :items, except: :index
+    resources :items, except: :index do
+      member do
+        post 'toggle'
+      end
+    end
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

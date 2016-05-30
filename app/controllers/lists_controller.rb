@@ -1,6 +1,6 @@
 class ListsController < ApplicationController
 	before_action :authenticate_user!
-	before_action :find_list, only: [:show, :edit, :update, :destroy]
+	before_action :find_list, only: [:show, :edit, :update, :destroy, :toggle]
 	before_filter :require_permission, only: :edit
 
 	def index
@@ -38,6 +38,7 @@ class ListsController < ApplicationController
 		@list.destroy
 		redirect_to lists_path
 	end
+
 
 	private
 

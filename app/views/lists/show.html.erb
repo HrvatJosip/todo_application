@@ -7,7 +7,26 @@
 
 <% @list.items.each do |item| %>
 	<div class="task">
-		<%= item.task %>
+		<%= check_box_tag 'complete', item.id, item.is_complete, class: "task-check" %>
+		<span><%= item.task %></span>
 		<%= link_to "Delete Task", list_item_path(@list, item), method: :delete, data: {confirm: "Are you sure?"} %>
+		<%= item.is_complete %>
 	</div>
 <% end %>
+
+<script>
+	$(".task-check").bind('change', function(){
+    $.ajax({
+      url: '/lists/'+ <%= @list.id %> +'/items/' +this.value+ '/toggle',
+      type: 'POST',
+      data: {"is_complete": this.checked}
+    });
+    if($(this).is(":checked")){
+    	$(this).addClass("complete");
+    }else{
+    	$(this).removeClass("complete");
+    }
+});
+
+ $(".task-check").trigger('change');
+</script>

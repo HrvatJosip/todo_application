@@ -35,6 +35,12 @@ class ItemsController < ApplicationController
 		redirect_to @list
 	end
 
+	def toggle
+		@item = Item.find(params[:id])
+		@item.update_attributes(:is_complete => params[:is_complete])
+		redirect_to root_path
+	end
+
 	private
 
 		def item_params
